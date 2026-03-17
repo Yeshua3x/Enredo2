@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sombras Esquecidas | Mini-Série</title>
+    <title>Sombras da Fé | Mini-Série Bíblica</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #111;
-            --accent: #ff4d4d;
-            --accent-glow: #ff4d4d40;
+            --accent: #d4a574;
+            --accent-glow: #d4a57440;
             --text-primary: #f5f5f5;
             --text-secondary: #b0b0b0;
             --glass: rgba(255,255,255,0.05);
@@ -25,24 +25,21 @@
             overflow-x: hidden;
         }
 
-        /* HEADER MODERNO COMPACT */
         header { 
-            position: fixed; 
-            top: 0; left: 0; right: 0; 
+            position: fixed; top: 0; left: 0; right: 0; 
             height: 60px; 
             backdrop-filter: blur(20px); 
             background: var(--glass); 
             border-bottom: 1px solid var(--glass); 
             z-index: 1000; 
             padding: 0 5%; 
-            display: flex; 
-            align-items: center; 
+            display: flex; align-items: center; 
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .logo { 
             font-size: 1.4rem; 
             font-weight: 700; 
-            background: linear-gradient(135deg, var(--accent), #ff8a80); 
+            background: linear-gradient(135deg, var(--accent), #f4d4a5); 
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
             margin-right: auto; 
@@ -51,8 +48,7 @@
             display: none; 
             flex-direction: column; 
             width: 25px; height: 20px; 
-            cursor: pointer; 
-            z-index: 1001;
+            cursor: pointer; z-index: 1001;
         }
         .hamburger span { 
             width: 100%; height: 3px; 
@@ -69,7 +65,7 @@
         }
 
         nav { display: flex; gap: 2rem; }
-        nav a { 
+        nav a, .mobile-menu a { 
             color: var(--text-primary); 
             text-decoration: none; 
             font-weight: 500; 
@@ -77,45 +73,35 @@
             opacity: 0.8; 
             transition: 0.3s;
         }
-        nav a:hover, nav a.active { opacity: 1; color: var(--accent); }
+        nav a:hover, nav a.active, .mobile-menu a:hover, .mobile-menu a.active { 
+            opacity: 1; color: var(--accent); 
+        }
         .mobile-menu { 
-            position: fixed; 
-            top: 60px; left: 0; right: 0; 
+            position: fixed; top: 60px; left: 0; right: 0; 
             background: var(--bg-secondary); 
             backdrop-filter: blur(20px); 
             transform: translateY(-100%); 
             opacity: 0; 
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
-            padding: 2rem 5%; 
-            z-index: 999;
+            padding: 2rem 5%; z-index: 999;
         }
-        .mobile-menu.active { 
-            transform: translateY(0); 
-            opacity: 1; 
-        }
-        .mobile-menu a { 
-            display: block; 
-            padding: 1rem 0; 
-            font-size: 1.2rem; 
-            border-bottom: 1px solid var(--glass); 
-        }
+        .mobile-menu.active { transform: translateY(0); opacity: 1; }
+        .mobile-menu a { display: block; padding: 1rem 0; font-size: 1.2rem; border-bottom: 1px solid var(--glass); }
 
-        /* MAIN */
         main { padding-top: 100px; padding-bottom: 5rem; max-width: 900px; margin: 0 auto; padding: 0 5%; }
         
-        /* HERO */
         .hero { text-align: center; margin-bottom: 4rem; }
         .hero h1 { 
             font-size: clamp(2.5rem, 6vw, 4.5rem); 
             font-weight: 700; 
-            background: linear-gradient(135deg, var(--accent), #ff8a80); 
+            background: linear-gradient(135deg, var(--accent), #f4d4a5); 
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
             margin-bottom: 1rem; 
         }
         .hero p { font-size: 1.3rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .verse { font-style: italic; opacity: 0.8; margin-top: 1rem; }
 
-        /* EPISODES GRID */
         .episodes { display: grid; gap: 2rem; }
         .episode-card { 
             background: rgba(255,255,255,0.03); 
@@ -125,13 +111,11 @@
             padding: 2.5rem; 
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
             cursor: pointer; 
-            position: relative; 
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
         .episode-card::before { 
             content: ''; 
-            position: absolute; 
-            top: 0; left: 0; right: 0; 
+            position: absolute; top: 0; left: 0; right: 0; 
             height: 4px; 
             background: linear-gradient(90deg, var(--accent), transparent); 
         }
@@ -150,13 +134,12 @@
         }
         .episode-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; }
         .cliffhanger { 
-            background: rgba(255,77,77,0.1); 
-            border: 1px solid rgba(255,77,77,0.2); 
+            background: rgba(212,165,116,0.1); 
+            border: 1px solid rgba(212,165,116,0.2); 
             padding: 1.5rem; 
             border-radius: 12px; 
             margin-top: 1.5rem;
-            font-weight: 600; 
-            font-size: 1.1rem;
+            font-weight: 600; font-size: 1.1rem;
         }
         .fans { 
             background: rgba(255,255,255,0.02); 
@@ -166,68 +149,12 @@
             opacity: 0.7; 
             margin-top: 1rem;
         }
+        .loading { text-align: center; padding: 3rem; font-size: 1.2rem; opacity: 0.6; }
 
-        /* EPISODE MODAL */
-        .modal { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; right: 0; bottom: 0; 
-            background: rgba(0,0,0,0.95); 
-            z-index: 2000; 
-            padding: 5%; 
-            overflow-y: auto;
-        }
-        .modal.active { display: block; }
-        .modal-content { 
-            max-width: 800px; 
-            margin: 0 auto; 
-            background: rgba(255,255,255,0.03); 
-            backdrop-filter: blur(20px); 
-            border-radius: 20px; 
-            border: 1px solid var(--glass); 
-            padding: 3rem;
-        }
-        .modal h1 { 
-            font-size: 2.5rem; 
-            background: linear-gradient(135deg, var(--accent), #ff8a80); 
-            -webkit-background-clip: timer; 
-            -webkit-text-fill-color: transparent; 
-            margin-bottom: 2rem; 
-            text-align: center;
-        }
-        .close-modal { 
-            position: absolute; 
-            top: 2rem; right: 2rem; 
-            width: 40px; height: 40px; 
-            background: var(--accent); 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            font-size: 1.5rem;
-        }
-        .episode-text { font-size: 1.1rem; line-height: 1.8; white-space: pre-line; }
-        .cliffhanger-modal { 
-            background: linear-gradient(135deg, var(--accent), #ff8a80); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            font-size: 1.3rem; 
-            font-weight: 700; 
-            padding: 2rem; 
-            border-radius: 15px; 
-            background: rgba(255,77,77,0.15); 
-            border: 2px solid rgba(255,77,77,0.3); 
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        /* RESPONSIVO */
         @media (max-width: 768px) {
             .hamburger { display: flex; }
             nav { display: none; }
             .episode-card { padding: 2rem 1.5rem; }
-            .modal-content { padding: 2rem 1.5rem; margin: 1rem; }
         }
 
         ::-webkit-scrollbar { width: 8px; }
@@ -237,92 +164,57 @@
 </head>
 <body>
     <header>
-        <div class="logo">SOMBRAS</div>
+        <div class="logo">SOMBRAS DA FÉ</div>
         <nav>
             <a href="#home" class="active">Início</a>
             <a href="#episodios">Episódios</a>
-            <a href="#sobre">Sobre</a>
+            <a href="dia-seguinte.html">Ep. 4</a>
         </nav>
         <div class="hamburger" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
         <div class="mobile-menu" id="mobileMenu">
             <a href="#home">Início</a>
             <a href="#episodios">Episódios</a>
-            <a href="#sobre">Sobre</a>
+            <a href="dia-seguinte.html">Ep. 4</a>
         </div>
     </header>
 
     <main>
         <section class="hero" id="home">
-            <h1>Sombras Esquecidas</h1>
-            <p>Uma mini-série que vai te fazer questionar cada sombra em Recife. <strong>O que você faria se descobrisse que matou alguém... e não lembra?</strong></p>
+            <h1>Sombras da Fé</h1>
+            <p>Um jovem cristão enfrenta provações espirituais em Recife. <strong>"Sede fortes e corajosos. Não temas..."</strong></p>
+            <p class="verse">Josué 1:9</p>
         </section>
 
         <section class="episodes" id="episodios">
-            <!-- EPISÓDIOS CARREGADOS VIA JSON -->
-        </section>
-
-        <section id="sobre" style="margin-top: 4rem; opacity: 0.8; text-align: center;">
-            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Episódio 4 em breve...</h2>
-            <p>Assine para receber alerta quando sair. <strong>Você vai descobrir a verdade?</strong></p>
+            <div class="loading">Carregando capítulos bíblicos...</div>
         </section>
     </main>
 
-    <!-- MODAL PARA LEITURA COMPLETA -->
-    <div class="modal" id="episodeModal">
-        <div class="modal-content">
-            <div class="close-modal" onclick="closeModal()">&times;</div>
-            <h1 id="modalTitle"></h1>
-            <div class="episode-text" id="modalContent"></div>
-            <div class="cliffhanger-modal" id="modalCliffhanger"></div>
-            <div id="fansModal" style="margin-top: 2rem; opacity: 0.7;"></div>
-        </div>
-    </div>
-
     <script>
-        // JSON EMBUTIDO COM TODOS CAPÍTULOS
-        const episodesData = {
-            "ep1": {
-                "title": "O Chamado",
-                "number": "01",
-                "preview": "No escuro de Recife, Lucas acorda com um bilhete: 'Você matou ela. Corra.' Corre para o cais...",
-                "fullContent": "A chuva torrencial de Recife castiga as ruas estreitas do Bairro do Recife. Lucas acorda no chão molhado, com um bilhete amassado na mão: 'VOCÊ MATOU ELA. CORRA.'\n\nNão lembra de nada. A última memória é de uma festa no Casa de Festas, risadas com amigos, e um rosto... um rosto que agora assombra seus sonhos. O celular vibra sem parar: uma foto dele com sangue nas mãos, enviada de um número desconhecido.\n\n'Não pode ser eu', pensa enquanto corre para o cais do Porto. O ar salgado do mar mistura-se com o cheiro de medo. Um homem encapuzado o espera na sombra dos guindastes.\n\n'Eu sei o que você fez', diz a voz grave. 'Quer prova?' Entrega um pen drive. Lucas treme ao conectar no celular. O vídeo começa.",
-                "cliffhanger": "Lucas vê a si mesmo esfaqueando uma mulher. Mas... e se for falso? O que acontece quando ele aperta PLAY?",
-                "fans": ["\"WTF? É ele mesmo o assassino?!!!\" - @mysteryfanBR", "\"Já tô viciado, que série foda!\" - @recifedetective"]
-            },
-            "ep2": {
-                "title": "A Prova",
-                "number": "02",
-                "preview": "O vídeo é nítido. Deepfake? No apartamento da namorada: sangue no chão...",
-                "fullContent": "O vídeo é cristalino: Lucas crava a faca repetidas vezes. Grita para o encapuzado: 'Deepfake! Eu não fiz isso!' O homem ri: 'Então por que sua namorada sumiu na mesma noite?'\n\nCorre para o prédio dela no Boa Viagem. Porta arrombada, sangue seco no piso de madeira. No espelho do banheiro, escrito em batom: 'VOCÊ É O PRÓXIMO'. O coração dispara.\n\nLiga para a polícia, mas a ligação cai: 'Linha bloqueada por você mesmo'. Revira o apartamento e encontra um USB escondido atrás da TV. Dentro, áudios dele confessando tudo em detalhes. A voz é idêntica... mas não é a dele.\n\nDe repente, sirenes. A polícia cerca o prédio. Lucas pula a janela do 5º andar.",
-                "cliffhanger": "No ar, ele vê o encapuzado sorrindo lá embaixo. Loucura ou armação perfeita? E se ele realmente fez tudo?",
-                "fans": ["\"PLOT TWIST DO CARALHO!\" - @recifedetective", "\"Deepfake ou esquizofrenia? Tô surtando!\" - @thrillerPE"]
-            },
-            "ep3": {
-                "title": "O Gêmeo",
-                "number": "03",
-                "preview": "O encapuzado tira a máscara: um gêmeo idêntico. 'Eu fiz tudo por você...'",
-                "fullContent": "Lucas confronta o encapuzado no beco escuro: 'QUEM É VOCÊ?' Ele tira a máscara lentamente. É Lucas. Idêntico. Um gêmeo perdido, criado em segredo pela família rica que controla metade dos negócios de Recife.\n\n'Eu fiz tudo por você, irmão. Para te proteger... ou te destruir?' revela. A namorada foi morta pelo pai deles, num acidente de carro encoberto. O gêmeo forjou todas as provas para vingar a família.\n\n'Matar o velho era o plano. Você seria o bode expiatório perfeito', confessa. Mostra documentos: Lucas foi separado ao nascer por ser 'o fraco'.\n\nSirenes se aproximam. Escolha: entregar o irmão ou fugir juntos contra a família?",
-                "cliffhanger": "Um TIRO ecoa na noite de Recife. Quem atirou? E se houver MAIS GÊMEOS na família?",
-                "fans": ["\"GÊMEO MALIGNO? CLÁSSICO MAS GENIAL!\" - @thrillerPE", "\"Ep.4 JÁ! Tô implorando...\" - @mysteryfanBR"]
+        let episodesData = {};
+        
+        async function loadEpisodesData() {
+            try {
+                const response = await fetch('enredo.json');
+                episodesData = await response.json();
+                document.querySelector('.loading').remove();
+                renderEpisodes();
+            } catch (error) {
+                document.querySelector('.loading').innerHTML = 'Erro ao carregar capítulos. Verifique enredo.json';
             }
-        };
+        }
 
-        let currentPage = 'home';
+        function renderEpisodes() {
+            const container = document.querySelector('.episodes');
+            container.innerHTML = '';
 
-        // CARREGA EPISÓDIOS NA PÁGINA
-        function loadEpisodes() {
-            const episodesContainer = document.querySelector('.episodes');
-            episodesContainer.innerHTML = '';
-            
             Object.keys(episodesData).forEach(key => {
                 const ep = episodesData[key];
                 const card = document.createElement('div');
                 card.className = 'episode-card';
-                card.onclick = () => openEpisode(key);
+                card.onclick = () => openEpisodeModal(key);
                 card.innerHTML = `
                     <div class="episode-header">
                         <div class="ep-number">${ep.number}</div>
@@ -331,41 +223,26 @@
                     <p>${ep.preview}</p>
                     <div class="cliffhanger">${ep.cliffhanger}</div>
                     <div class="fans">
-                        <strong>Fãs comentam:</strong><br>
+                        <strong>Irmãos comentam:</strong><br>
                         ${ep.fans.map(fan => fan).join('<br>')}
                     </div>
                 `;
-                episodesContainer.appendChild(card);
+                container.appendChild(card);
             });
         }
 
-        // ABRIR MODAL DO EPISÓDIO
-        function openEpisode(epKey) {
+        function openEpisodeModal(epKey) {
             const ep = episodesData[epKey];
-            document.getElementById('modalTitle').textContent = `${ep.number} - ${ep.title}`;
-            document.getElementById('modalContent').textContent = ep.fullContent;
-            document.getElementById('modalCliffhanger').textContent = ep.cliffhanger;
-            document.getElementById('fansModal').innerHTML = `
-                <strong>Fãs comentam:</strong><br>
-                ${ep.fans.map(fan => fan).join('<br>')}
-            `;
-            document.getElementById('episodeModal').classList.add('active');
+            alert(`📖 CAPÍTULO ${ep.number} - ${ep.title}\n\n${ep.fullContent}\n\n🔥${ep.cliffhanger}\n\n🙏 ${ep.fans.join('\n')}`);
         }
 
-        // FECHAR MODAL
-        function closeModal() {
-            document.getElementById('episodeModal').classList.remove('active');
-        }
-
-        // MENU HAMBURGUER
         function toggleMenu() {
             document.querySelector('.hamburger').classList.toggle('active');
             document.getElementById('mobileMenu').classList.toggle('active');
         }
 
-        // NAVEGAÇÃO INTERNA
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = this.getAttribute('href').substring(1);
                 navigateTo(target);
@@ -374,41 +251,21 @@
         });
 
         function navigateTo(page) {
-            // Remove active de todos links
             document.querySelectorAll('nav a, .mobile-menu a').forEach(a => a.classList.remove('active'));
             document.querySelectorAll(`a[href="#${page}"]`).forEach(a => a.classList.add('active'));
-
-            currentPage = page;
             
             if (page === 'home') {
                 document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' });
             } else if (page === 'episodios') {
                 document.getElementById('episodios').scrollIntoView({ behavior: 'smooth' });
-                if (!document.querySelector('.episode-card')) {
-                    loadEpisodes();
-                }
-            } else if (page === 'sobre') {
-                document.getElementById('sobre').scrollIntoView({ behavior: 'smooth' });
             }
         }
 
-        // EVENT LISTENER MODAL
-        window.onclick = function(event) {
-            const modal = document.getElementById('episodeModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-
-        // HEADER PARALLAX
         window.addEventListener('scroll', () => {
-            const scroll = window.scrollY;
-            document.querySelector('header').style.background = `rgba(10,10,10,${Math.min(0.1 + scroll * 0.0005, 0.2)})`;
+            document.querySelector('header').style.background = `rgba(10,10,10,${Math.min(0.1 + window.scrollY * 0.0005, 0.2)})`;
         });
 
-        // INIT
-        loadEpisodes();
-        navigateTo('home');
+        loadEpisodesData();
     </script>
 </body>
 </html>
